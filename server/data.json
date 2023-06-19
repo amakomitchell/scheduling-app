@@ -1,0 +1,39 @@
+{
+  "activities": [
+    {
+      "id": 1,
+      "type": 2,
+      "date": "Tue Jun 20 2023 00:07:34 GMT+0200 (Central European Summer Time)",
+      "performer": 3,
+      "pitch": 3
+    },
+    {
+      "id": 2,
+      "type": 3,
+      "date": "Tue Jun 19 2023 00:07:34 GMT+0200 (Central European Summer Time)",
+      "performer": 2,
+      "pitch": 2
+    },
+    {
+      "id": 3,
+      "type": 1,
+      "date": "Tue Jun 02 2023 00:07:35 GMT+0200 (Central European Summer Time)",
+      "performer": 4,
+      "pitch": 4
+    },
+    {
+      "id": 4,
+      "type": 1,
+      "date": "Tue Jun 14 2023 00:07:34 GMT+0200 (Central European Summer Time)",
+      "performer": 1,
+      "pitch": 2
+    },
+    {
+      "id": 5,
+      "type": 4,
+      "date": "Tue Jun 04 2023 00:07:34 GMT+0200 (Central European Summer Time)",
+      "performer": 4,
+      "pitch": 4
+    }
+  ]
+}

@@ -1,15 +1,20 @@
 import React from 'react';
-import mockData from './data.json';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import ActivityList from './components/ActivityList';
-// import './App.css';
+import WeatherDisplay from './components/WeatherDisplay';
+import Box from '@mui/material/Box';
+import { Container } from '@mui/material';
+
+const queryClient = new QueryClient();
 
 function App() {
-  // console.log('mockData', mockData);
   return (
-    <div>
-      Activity List
-      <ActivityList />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Container>
+        <WeatherDisplay />
+        <ActivityList />
+      </Container>
+    </QueryClientProvider>
   );
 }
 

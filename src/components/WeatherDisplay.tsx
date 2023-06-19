@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { getWeather } from '../repository/get-weather';
+import { useGetWeather } from '../repository/apis';
 import { Weather } from '../types/weather';
+import Box from '@mui/system/Box';
 
 function WeatherDisplay() {
-  const [activities, setActivities] = useState<Weather>();
+  const [coords, setCoords] = useState<GeolocationCoordinates | null>();
 
   useEffect(() => {
-    getWeather().then((data) => {
-      setActivities(data);
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCoords(position.coords);
     });
+    
   }, []);
 
-  console.log('weather activities', activities);
+  const { data: weather, isLoading } = useGetWeather({ lat: coords?.latitude, lng: coords?.longitude });
+  // console.log('weather', weather)
   return (
-    <div className="App">
-      <h1>Weather Activities</h1>
-      <div>Name: {activities?.name}</div>
-      <div>Temperature: {activities?.main.temp}</div>
-      {/* <ul>
-            {activities.map((activity) => (
-              <li key={activity.id}>
-                {activity.name} - {activity.timezone}
-              </li>
-            ))}
-          </ul> */}
-    </div>
+   <Box></Box>
   );
 }
 export default WeatherDisplay;
