@@ -1,0 +1,32 @@
+{
+  "mockData": [
+    {
+      "type": "Mowing",
+      "date": "2023-06-18",
+      "time": "10:00 AM",
+      "performer": "John",
+      "pitch": "Pitch 1"
+    },
+    {
+      "type": "Fertilisation",
+      "date": "2023-06-19",
+      "time": "2:00 PM",
+      "performer": "Tom",
+      "pitch": "Pitch 2"
+    },
+    {
+      "type": "Irrigation",
+      "date": "2023-06-20",
+      "time": "9:30 AM",
+      "performer": "Tony",
+      "pitch": "Pitch 3"
+    },
+    {
+      "type": "Aeration",
+      "date": "2023-06-21",
+      "time": "4:00 PM",
+      "performer": "John",
+      "pitch": "Pitch 1"
+    }
+  ]
+}
