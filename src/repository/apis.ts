@@ -1,9 +1,8 @@
-import { useQuery } from 'react-query';
 import { Activity } from '../types/activity';
 import { Weather } from '../types/weather';
 import { APPID } from './constants';
 
-type WeatherArgs = {
+export type WeatherArgs = {
   lng?: number;
   lat?: number;
   location?: string;
@@ -28,15 +27,38 @@ export const getActivities = async (): Promise<Activity[]> => {
   return activities;
 };
 
-export const useGetWeather = (coord: Pick<WeatherArgs, 'lat' | 'lng'>) => {
-  return useQuery(['WEATHER'], () => getWeather(coord), {
-    enabled: !!coord.lat && !!coord.lng,
+export const createActivity = async (activity: Activity): Promise<Activity> => {
+  const response = await fetch('http://localhost:3030/activities', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(activity),
   });
+  const data = await response.json();
+  return data;
 };
 
-export const useGetActivities = () => {
-  return useQuery(['ACTIVITIES'], getActivities);
-};
+export const editActivity = async (activity: Activity): Promise<Activity> => {
+  const response = await fetch(`http://localhost:3030/activities/${activity.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(activity),
+  });
+  const data = await response.json();
+  return data;
+}
 
-// http://api.openweathermap.org/geo/1.0/reverse?lat=${LAT}&lon=${LON}&APPID=${APPID}
-// https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=${APPID}
+export const deleteActivity = async (activity: Activity): Promise<Activity> => {
+  const response = await fetch(`http://localhost:3030/activities/${activity.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(activity),
+  });
+  const data = await response.json();
+  return data;
+}
