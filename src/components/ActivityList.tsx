@@ -46,7 +46,7 @@ function ActivityList() {
   }
 
   return (
-    <Box mt={40}>
+    <Box mt={10}>
       <Box display="flex" justifyContent="space-between" mb={5}>
         <Typography variant='h4' fontWeight="bold">Activities</Typography>
         <Button variant="contained" endIcon={<AddIcon />}>

@@ -2,7 +2,6 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ActivityList from './components/ActivityList';
 import WeatherDisplay from './components/WeatherDisplay';
-import Box from '@mui/material/Box';
 import { Container } from '@mui/material';
 
 const queryClient = new QueryClient();
@@ -12,7 +11,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Container>
         <WeatherDisplay />
-        <ActivityList />
+        <ActivityList /> 
       </Container>
     </QueryClientProvider>
   );
