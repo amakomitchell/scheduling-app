@@ -2,38 +2,52 @@
   "activities": [
     {
       "id": "1",
-      "type": 2,
+      "type": "2",
       "date": "Tue Jun 20 2023 00:07:34 GMT+0200 (Central European Summer Time)",
-      "performer": 3,
-      "pitch": 3
+      "performer": "3",
+      "pitch": "3"
     },
     {
       "id": "2",
-      "type": 3,
+      "type": "3",
       "date": "Tue Jun 19 2023 00:07:34 GMT+0200 (Central European Summer Time)",
-      "performer": 2,
-      "pitch": 2
+      "performer": "2",
+      "pitch": "2"
     },
     {
       "id": "3",
-      "type": 1,
+      "type": "1",
       "date": "Tue Jun 02 2023 00:07:35 GMT+0200 (Central European Summer Time)",
-      "performer": 4,
-      "pitch": 4
+      "performer": "4",
+      "pitch": "4"
     },
     {
       "id": "4",
-      "type": 1,
+      "type": "1",
       "date": "Tue Jun 14 2023 00:07:34 GMT+0200 (Central European Summer Time)",
-      "performer": 1,
-      "pitch": 2
+      "performer": "1",
+      "pitch": "2"
     },
     {
       "id": "5",
-      "type": 4,
+      "type": "4",
       "date": "Tue Jun 04 2023 00:07:34 GMT+0200 (Central European Summer Time)",
-      "performer": 4,
-      "pitch": 4
+      "performer": "4",
+      "pitch": "4"
+    },
+    {
+      "id": "f8aa5a0f-609f-44bb-ba78-648885dfbacb",
+      "date": "2023-06-22T08:50:00.000Z",
+      "performer": "John Doe",
+      "type": "Fertilisation",
+      "pitch": "Pitch 3"
+    },
+    {
+      "id": "47023d4b-0e80-4927-b0c6-da4331c89451",
+      "type": "2",
+      "performer": "4",
+      "pitch": "2",
+      "date": "2023-06-28T04:30:00.000Z"
     }
   ]
 }

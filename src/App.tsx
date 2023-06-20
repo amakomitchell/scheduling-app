@@ -4,7 +4,7 @@ import ActivityList from './components/ActivityList';
 import WeatherDisplay from './components/WeatherDisplay';
 import { Container } from '@mui/material';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 function App() {
   return (

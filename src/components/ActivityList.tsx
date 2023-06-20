@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Activity } from '../types/activity';
-import { useGetActivities } from '../repository/apis';
 import { format } from 'date-fns';
 import Box from '@mui/material/Box';
 import TableContainer from '@mui/material/TableContainer';
@@ -20,6 +19,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ActivityFormModal from './ActivityFormModal';
+import { useGetActivities } from '../repository/queries';
 
 function ActivityList() {
   const [activities, setActivities] = useState<Activity>();
@@ -39,7 +39,7 @@ function ActivityList() {
   // Toggle modal for add new activity
   const handleToggleModal = () => {
     if (selectedActivity) setSelectedActivity(undefined);
-    
+
     setIsModalOpen((prev) => !prev)
   }
 

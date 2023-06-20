@@ -1,5 +1,5 @@
 
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -20,6 +20,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Activity } from '../types/activity';
 import { ACTIVITY_TYPES, PERFORMERS, PITCHES } from '../repository/constants';
+import { useCreateActivity, useUpdateActivity } from '../repository/mutations';
 
 type ActivityFormModalProps = {
   isOpen: boolean;
@@ -34,6 +35,15 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
   const [data, setData] = useState<Partial<Activity>>(activity || { id: uuidv4() })
   
   const isEditMode = Boolean(activity);
+
+  const { mutate: createActivity} = useCreateActivity();
+  const { mutate: updateActivity } = useUpdateActivity()
+
+  const handleSubmit = useCallback(() => {
+    const mutate = isEditMode ? updateActivity : createActivity;
+    mutate(data as Activity);
+    handleClose();
+  }, [data, isEditMode])
   
   return (
     <Dialog
@@ -57,7 +67,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
             input={<OutlinedInput label="Age" id="demo-dialog-native" />}
           >
             {ACTIVITY_TYPES.map((type) => (
-              <MenuItem key={type?.id} value={type.name}>{type.name}</MenuItem>
+              <MenuItem key={type?.id} value={type.id}>{type.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -74,7 +84,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
               <em>None</em>
             </MenuItem>
             {PERFORMERS.map((performer) => (
-              <MenuItem key={performer?.id} value={performer.name}>{performer.name}</MenuItem>
+              <MenuItem key={performer?.id} value={performer.id}>{performer.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -93,13 +103,13 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
               <em>None</em>
             </MenuItem>
             {PITCHES.map((pitch) => (
-              <MenuItem key={pitch?.id} value={pitch.name}>{pitch.name}</MenuItem>
+              <MenuItem key={pitch?.id} value={pitch.id}>{pitch.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['DateTimePicker']}>
-            <DateTimePicker value={data.date} label="Date/Time" />
+            <DateTimePicker value={data.date} onChange={(newValue) => setData({...data, date: newValue ?? undefined})} label="Date/Time" />
           </DemoContainer>
         </LocalizationProvider>
       </Box>
@@ -108,7 +118,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
       <Button autoFocus onClick={handleClose}>
         Cancel
       </Button>
-      <Button autoFocus>
+      <Button autoFocus onClick={handleSubmit}>
         {`${isEditMode ? 'Update' : 'Create'}`}
       </Button>
     </DialogActions>

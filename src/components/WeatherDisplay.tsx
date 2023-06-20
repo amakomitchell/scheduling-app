@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useGetWeather } from '../repository/apis';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import CloudIcon from '@mui/icons-material/Cloud';
 import Typography from '@mui/material/Typography';
 import { format } from 'date-fns';
+import { useGetWeather } from '../repository/queries';
 
 function WeatherDisplay() {
   const [coords, setCoords] = useState<GeolocationCoordinates | null>();
