@@ -1,5 +1,5 @@
 export type Activity = {
-  id: number;
+  id: string;
   type: number;
   date: Date | string;
   performer: number;

@@ -26,7 +26,7 @@ function WeatherDisplay() {
     return <div>Loading...</div>
   }
   if(!weather) {
-    return <div>Not found</div>
+    return null;
   }
   
   console.log('weather', weather)
