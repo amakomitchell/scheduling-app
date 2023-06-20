@@ -5,18 +5,21 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Activity } from '../types/activity';
+import { ACTIVITY_TYPES, PERFORMERS, PITCHES } from '../repository/constants';
 
 type ActivityFormModalProps = {
   isOpen: boolean;
@@ -31,7 +34,6 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
   const [data, setData] = useState<Partial<Activity>>(activity || { id: uuidv4() })
   
   const isEditMode = Boolean(activity);
-
   
   return (
     <Dialog
@@ -45,72 +47,61 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
     </DialogTitle>
     <DialogContent>
       <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel htmlFor="demo-dialog-native">Type</InputLabel>
           <Select
-            native
-            value='Age 1'
-            // onChange={handleChange}
+            labelId="demo-dialog-select-label"
+            id="demo-dialog-select"
+            value={data.type}
+            onChange={(event) => setData({ ...data, type:event.target.value })}
             input={<OutlinedInput label="Age" id="demo-dialog-native" />}
           >
-            <option aria-label="None" value="" />
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
+            {ACTIVITY_TYPES.map((type) => (
+              <MenuItem key={type?.id} value={type.name}>{type.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel id="demo-dialog-select-label">Performer</InputLabel>
           <Select
             labelId="demo-dialog-select-label"
             id="demo-dialog-select"
-            value='Age 2'
-            // value={age}
-            // onChange={handleChange}
+            value={data.performer}
+            onChange={(event) => setData({ ...data, performer:event.target.value })}
             input={<OutlinedInput label="Age" />}
           >
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {PERFORMERS.map((performer) => (
+              <MenuItem key={performer?.id} value={performer.name}>{performer.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
       <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel htmlFor="demo-dialog-native">Type</InputLabel>
-          <Select
-            native
-            value='Age 1'
-            // onChange={handleChange}
-            input={<OutlinedInput label="Age" id="demo-dialog-native" />}
-          >
-            <option aria-label="None" value="" />
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-dialog-select-label">Performer</InputLabel>
+        <FormControl sx={{ m: 1, minWidth: 250 }}>
+          <InputLabel htmlFor="demo-dialog-native">Pitch</InputLabel>
           <Select
             labelId="demo-dialog-select-label"
             id="demo-dialog-select"
-            value='Age 2'
-            // value={age}
-            // onChange={handleChange}
-            input={<OutlinedInput label="Age" />}
+            value={data.pitch}
+            onChange={(event) => setData({ ...data, pitch:event.target.value })}
+            input={<OutlinedInput label="Age" id="demo-dialog-native" />}
           >
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {PITCHES.map((pitch) => (
+              <MenuItem key={pitch?.id} value={pitch.name}>{pitch.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DateTimePicker']}>
+            <DateTimePicker value={data.date} label="Date/Time" />
+          </DemoContainer>
+        </LocalizationProvider>
       </Box>
     </DialogContent>
     <DialogActions>

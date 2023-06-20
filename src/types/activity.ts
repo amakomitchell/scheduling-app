@@ -1,7 +1,7 @@
 export type Activity = {
   id: string;
-  type: number;
+  type: string;
   date: Date | string;
-  performer: number;
-  pitch: number;
+  performer: string;
+  pitch: string;
 };
