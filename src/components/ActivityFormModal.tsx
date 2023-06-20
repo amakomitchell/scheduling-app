@@ -15,7 +15,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Activity } from '../types/activity';
@@ -107,9 +107,9 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
             ))}
           </Select>
         </FormControl>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DemoContainer components={['DateTimePicker']}>
-            <DateTimePicker value={data.date} onChange={(newValue) => setData({...data, date: newValue ?? undefined})} label="Date/Time" />
+            <DateTimePicker value={new Date(data.date!)} onChange={(newValue) => setData({...data, date: newValue ?? undefined})} label="Date/Time" />
           </DemoContainer>
         </LocalizationProvider>
       </Box>

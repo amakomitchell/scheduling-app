@@ -10,31 +10,20 @@ import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { ACTIVITY_TYPES, PERFORMERS, PITCHES } from '../repository/constants';
-import Popper from '@mui/material/Popper';
-import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ActivityFormModal from './ActivityFormModal';
 import { useGetActivities } from '../repository/queries';
+import MoreActions from './MoreActions';
 
 function ActivityList() {
-  const [activities, setActivities] = useState<Activity>();
 
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { data: activitiesData, isLoading } = useGetActivities();
 
   // open modal for add new activity
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<Activity>();
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpen((previousOpen) => !previousOpen);
-  };
 
   // Toggle modal for add new activity
   const handleToggleModal = () => {
@@ -42,17 +31,6 @@ function ActivityList() {
 
     setIsModalOpen((prev) => !prev)
   }
-
-  const editActivity = (activity: Activity) => {
-    setSelectedActivity(activity);
-    setIsModalOpen(true);
-  }
-
-  const canBeOpen = open && Boolean(anchorEl);
-  const id = canBeOpen ? 'transition-popper' : undefined;
-
-
-  const { data: activitiesData, isLoading } = useGetActivities();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -81,7 +59,7 @@ function ActivityList() {
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{cursor: "pointer"}}>
             {activitiesData.map((activity) => {
               const type = ACTIVITY_TYPES.find(
                 (activityType) => activityType.id === activity.type
@@ -90,8 +68,9 @@ function ActivityList() {
                 (activityPerformer) => activityPerformer.id === activity.performer
               );
               const pitch = PITCHES.find((activityPitch) => activityPitch.id === activity.pitch)
+              console.log('activity: ', activity)
               return (
-                <TableRow>
+                <TableRow key={activity.id}>
                   <TableCell component="th" scope="row">
                     {type?.name}
                   </TableCell>
@@ -99,19 +78,7 @@ function ActivityList() {
                   <TableCell align="right">{pitch?.name}</TableCell>
                   <TableCell align="right">{format(new Date(activity.date), 'dd.MM.yyyy hh:mm')}</TableCell>
                   <TableCell align="right">
-                    <div aria-describedby={id} onClick={handleClick} className=''><MoreVertIcon /></div>
-                    <Popper id={id} open={open} anchorEl={anchorEl} transition>
-                      {({ TransitionProps }) => (
-                      <Fade {...TransitionProps} timeout={350}>
-                      <Paper>
-                        <Box onClick={() => editActivity(activity)}>
-                          <Typography justifyContent="center" sx={{ p: 1 }}><CreateIcon fontSize='small' />Edit</Typography>
-                        </Box>
-                        <Typography sx={{ p: 1 }}><DeleteIcon fontSize='small' />Delete</Typography>
-                      </Paper>
-                    </Fade>
-                      )}
-                    </Popper>
+                    <MoreActions activity={activity} setIsModalOpen={setIsModalOpen} setSelectedActivity={setSelectedActivity} />
                   </TableCell>
                 </TableRow>
               );
