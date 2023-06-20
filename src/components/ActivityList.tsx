@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Activity } from '../types/activity';
 import { format } from 'date-fns';
 import Box from '@mui/material/Box';
@@ -16,10 +16,12 @@ import Button from '@mui/material/Button';
 import ActivityFormModal from './ActivityFormModal';
 import { useGetActivities } from '../repository/queries';
 import MoreActions from './MoreActions';
+import { useDeleteActivity } from '../repository/mutations';
 
 function ActivityList() {
 
   const { data: activitiesData, isLoading } = useGetActivities();
+  const { mutate: deleteActivity} = useDeleteActivity();
 
   // open modal for add new activity
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +33,11 @@ function ActivityList() {
 
     setIsModalOpen((prev) => !prev)
   }
+
+  const handleDelete = useCallback(() => {
+    const mutate = deleteActivity;
+    mutate(selectedActivity as Activity);
+  }, [selectedActivity]) 
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -78,7 +85,7 @@ function ActivityList() {
                   <TableCell align="right">{pitch?.name}</TableCell>
                   <TableCell align="right">{format(new Date(activity.date), 'dd.MM.yyyy hh:mm')}</TableCell>
                   <TableCell align="right">
-                    <MoreActions activity={activity} setIsModalOpen={setIsModalOpen} setSelectedActivity={setSelectedActivity} />
+                    <MoreActions activity={activity} setIsModalOpen={setIsModalOpen} setSelectedActivity={setSelectedActivity} deleteActivity={handleDelete} />
                   </TableCell>
                 </TableRow>
               );

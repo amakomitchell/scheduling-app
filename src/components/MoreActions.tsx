@@ -12,6 +12,7 @@ type MoreActionsProps = {
     activity: Activity;
     setIsModalOpen: (value: boolean) => void;
     setSelectedActivity: (value: Activity | undefined) => void;
+    deleteActivity: (activity: Activity) => void;
 };
 
 const MoreActions: FC<MoreActionsProps> = ({ activity, setIsModalOpen, setSelectedActivity}) => {
@@ -35,6 +36,13 @@ const MoreActions: FC<MoreActionsProps> = ({ activity, setIsModalOpen, setSelect
         setIsModalOpen(true);
     }
 
+    const deleteActivity = (activity: Activity) => {
+        if(window.confirm(`Are you sure you want to delete ${activity.type}?`)) {
+            setSelectedActivity(activity);
+            handleClose();
+        }
+    }
+
     return (
         <>
             <Box aria-describedby={id} onClick={handleClick} className=''><MoreVertIcon /></Box>
@@ -44,7 +52,7 @@ const MoreActions: FC<MoreActionsProps> = ({ activity, setIsModalOpen, setSelect
                   <CreateIcon fontSize='small' />
                   <Typography sx={{ p: 1 }}>Edit</Typography>
                 </Box>
-                <Box display="flex" alignItems="center" justifyContent="center">
+                <Box display="flex" alignItems="center" justifyContent="center" onClick={() => deleteActivity(activity)}>
                   <DeleteIcon fontSize='small' />
                   <Typography sx={{ p: 1 }}>Delete</Typography>
                 </Box>
