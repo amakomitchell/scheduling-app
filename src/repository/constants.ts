@@ -59,9 +59,4 @@ export const PITCHES = [
     'name': 'Pitch 3',
     'location': 'Munich',
   },
-  {
-    'id': "4",
-    'name': 'Pitch 3',
-    'location': 'Frankfurt',
-  },
 ];

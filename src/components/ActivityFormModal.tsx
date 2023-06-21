@@ -115,10 +115,10 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
       </Box>
     </DialogContent>
     <DialogActions>
-      <Button autoFocus onClick={handleClose}>
+      <Button variant="outlined" color="error" onClick={handleClose}>
         Cancel
       </Button>
-      <Button autoFocus onClick={handleSubmit}>
+      <Button variant="contained" onClick={handleSubmit}>
         {`${isEditMode ? 'Update' : 'Create'}`}
       </Button>
     </DialogActions>
