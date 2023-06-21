@@ -3,40 +3,18 @@ import { createActivity, deleteActivity, editActivity } from './apis'
 import { queryClient } from '../App'
 import { Activity } from '../types/activity'
 
+const onSuccess = () => {
+    queryClient.refetchQueries(['ACTIVITIES'])
+}
+
 export const useCreateActivity = () => {
-    return useMutation(createActivity, {
-      onSuccess: (activity) => {
-        queryClient.setQueryData<Activity[]>(['ACTIVITIES'], (oldActivities) => ([
-          ...(oldActivities || []),
-          activity,
-        ]))
-      }
-    })
+    return useMutation(createActivity, { onSuccess })
 }
 
 export const useUpdateActivity = () => {
-    return useMutation(editActivity, {
-        onSuccess: (activity) => {
-            queryClient.setQueryData<Activity[]>(['ACTIVITIES'], (oldActivities) => {
-                if (!oldActivities) return []
-                return oldActivities.map((oldActivity) => {
-                    if (oldActivity.id === activity.id) {
-                        return activity
-                    }
-                    return oldActivity
-                })
-            })
-        }
-    })
+    return useMutation(editActivity, { onSuccess })
 }
 
 export const useDeleteActivity = () => {
-    return useMutation(deleteActivity, {
-        onSuccess: (activity) => {
-            queryClient.setQueryData<Activity[]>(['ACTIVITIES'], (oldActivities) => {
-                if (!oldActivities) return []
-                return oldActivities.filter((oldActivity) => oldActivity.id !== activity.id)
-            })
-        }
-    })
+    return useMutation(deleteActivity, { onSuccess })
 }

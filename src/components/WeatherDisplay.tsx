@@ -31,7 +31,7 @@ function WeatherDisplay() {
   
   console.log('weather', weather)
   return (
-    <Box ml={90} sx={{ width: 400}} mt={4}>
+    <Box ml={92} sx={{ width: 400}} mt={4}>
       <Paper>
           <Box p={2} display="flex" flexDirection="column">
             <Typography> Current Weather</Typography>

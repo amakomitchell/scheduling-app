@@ -6,6 +6,7 @@ export type Weather = {
   timezone: string;
   timezone_offset: number;
   main: Main;
+  wind: Wind;
 };
 
 export type Main = {
@@ -16,3 +17,7 @@ export type Main = {
   pressure: number;
   humidity: number;
 };
+
+export type Wind = {
+  speed: number;
+}

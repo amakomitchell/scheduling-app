@@ -51,14 +51,11 @@ export const editActivity = async (activity: Activity): Promise<Activity> => {
   return data;
 }
 
-export const deleteActivity = async (activity: Activity): Promise<Activity> => {
-  const response = await fetch(`http://localhost:3030/activities/${activity.id}`, {
+export const deleteActivity = async (activityId: string) => {
+  return await fetch(`http://localhost:3030/activities/${activityId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(activity),
+    }
   });
-  const data = await response.json();
-  return data;
 }

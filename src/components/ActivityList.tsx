@@ -17,6 +17,7 @@ import ActivityFormModal from './ActivityFormModal';
 import { useGetActivities } from '../repository/queries';
 import MoreActions from './MoreActions';
 import { useDeleteActivity } from '../repository/mutations';
+import ActivityDetailDialog from './ActivityDetailDialog';
 
 function ActivityList() {
 
@@ -24,20 +25,32 @@ function ActivityList() {
   const { mutate: deleteActivity} = useDeleteActivity();
 
   // open modal for add new activity
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalActionsOpen, setIsModalActionsOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<Activity>();
+  const [ isActivityDetailModalOpen, setIsActivityDetailModalOpen ] = useState(false);
 
-  // Toggle modal for add new activity
   const handleToggleModal = () => {
     if (selectedActivity) setSelectedActivity(undefined);
-
-    setIsModalOpen((prev) => !prev)
+    setIsModalActionsOpen((prev) => !prev)
   }
 
-  const handleDelete = useCallback(() => {
-    const mutate = deleteActivity;
-    mutate(selectedActivity as Activity);
-  }, [selectedActivity]) 
+  const handleEdit = (activity: Activity) => {
+    setSelectedActivity(activity);
+    setIsModalActionsOpen(true);
+  }
+
+  const handleDelete = (activityId: string) => {
+    deleteActivity(activityId);
+  }
+
+  const handleActivityClick = (activity: Activity) => {
+    setSelectedActivity(activity);
+    setIsActivityDetailModalOpen(true);
+  };
+
+  const handleCloseActivityDetailModal = () => {
+    setIsActivityDetailModalOpen(false);
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -66,7 +79,7 @@ function ActivityList() {
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{cursor: "pointer"}}>
+          <TableBody>
             {activitiesData.map((activity) => {
               const type = ACTIVITY_TYPES.find(
                 (activityType) => activityType.id === activity.type
@@ -75,9 +88,8 @@ function ActivityList() {
                 (activityPerformer) => activityPerformer.id === activity.performer
               );
               const pitch = PITCHES.find((activityPitch) => activityPitch.id === activity.pitch)
-              console.log('activity: ', activity)
               return (
-                <TableRow key={activity.id}>
+                <TableRow key={activity.id} style={{cursor: "pointer"}} onClick={() => handleActivityClick(activity)}>
                   <TableCell component="th" scope="row">
                     {type?.name}
                   </TableCell>
@@ -85,7 +97,7 @@ function ActivityList() {
                   <TableCell align="right">{pitch?.name}</TableCell>
                   <TableCell align="right">{format(new Date(activity.date), 'dd.MM.yyyy hh:mm')}</TableCell>
                   <TableCell align="right">
-                    <MoreActions activity={activity} setIsModalOpen={setIsModalOpen} setSelectedActivity={setSelectedActivity} deleteActivity={handleDelete} />
+                    <MoreActions activity={activity} onEdit={handleEdit} onDelete={handleDelete} />
                   </TableCell>
                 </TableRow>
               );
@@ -93,7 +105,8 @@ function ActivityList() {
           </TableBody>
         </Table>
       </TableContainer>
-      {isModalOpen && <ActivityFormModal isOpen={isModalOpen} handleClose={handleToggleModal} activity={selectedActivity} />}
+      {isModalActionsOpen && <ActivityFormModal isOpen={isModalActionsOpen} handleClose={handleToggleModal} activity={selectedActivity} />}
+      {isActivityDetailModalOpen && <ActivityDetailDialog isModalOpen={isActivityDetailModalOpen} handleModalClose={handleCloseActivityDetailModal} activity={selectedActivity} />}
     </Box>
   );
 }
