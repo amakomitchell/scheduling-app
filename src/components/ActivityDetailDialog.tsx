@@ -15,6 +15,7 @@ import { useGetWeather } from '../repository/queries';
 import { styled } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import { ACTIVITY_TYPES, PERFORMERS, PITCHES } from '../repository/constants';
+import { convertKelvinToCelsius } from '../utils/get-celsius';
 
 type ActivityDetailDialogProps = {
     isModalOpen: boolean;
@@ -73,7 +74,7 @@ const ActivityDetailDialog: FC<ActivityDetailDialogProps> = ({ isModalOpen, acti
                     <Grid item xs={6} sm={6}>
                           <Item>
                             <HeaderText>Temp:</HeaderText>
-                            <BodyText>{weather?.main.temp}&deg;C</BodyText>
+                            <BodyText>{convertKelvinToCelsius(weather?.main.temp)}&deg;C</BodyText>
                           </Item>
                       </Grid>
                       <Grid item xs={6} sm={6}>
@@ -91,7 +92,7 @@ const ActivityDetailDialog: FC<ActivityDetailDialogProps> = ({ isModalOpen, acti
                       <Grid item xs={6} sm={6}>
                         <Item>
                           <HeaderText>Feels Like:</HeaderText>
-                          <BodyText>{weather?.main.feels_like}</BodyText>
+                          <BodyText>{convertKelvinToCelsius(weather?.main.feels_like)}&deg;C</BodyText>
                         </Item>
                       </Grid>
                   </Grid>

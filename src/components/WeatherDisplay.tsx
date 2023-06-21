@@ -5,6 +5,8 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import Typography from '@mui/material/Typography';
 import { format } from 'date-fns';
 import { useGetWeather } from '../repository/queries';
+import { convertKelvinToCelsius } from '../utils/get-celsius';
+import Skeleton from '@mui/material/Skeleton';
 
 function WeatherDisplay() {
   const [coords, setCoords] = useState<GeolocationCoordinates | null>();
@@ -18,18 +20,19 @@ function WeatherDisplay() {
     
   }, []);
 
-  const convertKelvinToCelsius = (kelvin: number) => {
-    return Math.round(kelvin - 273.15);
-  }
-
   if(isLoading) {
-    return <div>Loading...</div>
+    return (
+      <Box ml={92} sx={{ width: 400}} mt={4}>
+        <Skeleton />
+        <Skeleton animation="wave" />
+        <Skeleton animation={false} />
+    </Box>
+    )
   }
   if(!weather) {
     return null;
   }
   
-  console.log('weather', weather)
   return (
     <Box ml={92} sx={{ width: 400}} mt={4}>
       <Paper>
@@ -41,9 +44,6 @@ function WeatherDisplay() {
               <Typography variant='h4'>{convertKelvinToCelsius(weather.main.temp)}&deg;C</Typography>
             </Box>
             <Typography>Humidity {(weather.main.humidity)}%</Typography>
-          </Box>
-          <Box>
-
           </Box>
        </Paper>
     </Box>
