@@ -96,7 +96,7 @@ const ActivityDetailDialog: FC<ActivityDetailDialogProps> = ({ isModalOpen, acti
                     </Grid>
                     <Grid item xs={6} sm={6}>
                         <HeaderText variant='subtitle2'>Date/Time</HeaderText>
-                        <BodyText>{format(new Date(activity.date), 'dd.MM.yyyy hh:mm')}</BodyText>
+                        <BodyText>{format(new Date(activity.date), 'dd.MM.yyyy hh:mm aa')}</BodyText>
                     </Grid>
                 </Grid>
               </Box>

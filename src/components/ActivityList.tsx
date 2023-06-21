@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Activity } from '../types/activity';
 import { format } from 'date-fns';
 import Box from '@mui/material/Box';
@@ -95,7 +95,7 @@ function ActivityList() {
                   </TableCell>
                   <TableCell align="right">{performer?.name}</TableCell>
                   <TableCell align="right">{pitch?.name}</TableCell>
-                  <TableCell align="right">{format(new Date(activity.date), 'dd.MM.yyyy hh:mm')}</TableCell>
+                  <TableCell align="right">{format(new Date(activity.date), 'dd.MM.yyyy hh:mm aa')}</TableCell>
                   <TableCell align="right">
                     <MoreActions activity={activity} onEdit={handleEdit} onDelete={handleDelete} />
                   </TableCell>
