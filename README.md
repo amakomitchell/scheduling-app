@@ -1,12 +1,21 @@
 # Getting Started with Create React App
+## It is important to read through this README and follow the steps outlined below to get this application running locally.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Get your API key to make request here: `https://home.openweathermap.org/users/sign_up`. You have to create an account with your email and then recieve the key via mail.
+Copy your created key to constants.ts and replace the value of the variable APPID with your newly created key, you can find this file in src/repository/constants.ts
 
 In the project directory, you can run:
 
-### `npm start`
+## `npm install`
+
+This installs node_modules with the dependencies and devDependencies.
+
+## `npm run start-server`
+Starts the json mock server. This runs the mock-server in the localhost. Open [http://localhost:3030/activities] to view it in the browser.
+
+## `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
