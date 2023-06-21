@@ -51,15 +51,17 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
     open={isOpen}
     onClose={handleClose}
     aria-labelledby="responsive-dialog-title"
+    maxWidth="lg"
   >
     <DialogTitle id="responsive-dialog-title">
       {`${isEditMode ? 'Edit' : 'Add New'} Activity`}
     </DialogTitle>
     <DialogContent>
-      <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      <Box component="form"  sx={{ display: 'flex', flexWrap: 'wrap' }}>
         <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel htmlFor="demo-dialog-native">Type</InputLabel>
           <Select
+            sx={{ minWidth: { xs: 350, md: 250}}}
             labelId="demo-dialog-select-label"
             id="demo-dialog-select"
             value={data.type}
@@ -74,6 +76,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
         <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel id="demo-dialog-select-label">Performer</InputLabel>
           <Select
+            sx={{ minWidth: { xs: 350, md: 250}}}
             labelId="demo-dialog-select-label"
             id="demo-dialog-select"
             value={data.performer}
@@ -93,6 +96,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
         <FormControl sx={{ m: 1, minWidth: 250 }}>
           <InputLabel htmlFor="demo-dialog-native">Pitch</InputLabel>
           <Select
+            sx={{ minWidth: { xs: 350, md: 250}}}
             labelId="demo-dialog-select-label"
             id="demo-dialog-select"
             value={data.pitch}
@@ -108,7 +112,7 @@ const ActivityFormModal: FC<ActivityFormModalProps> = ({ isOpen, activity, handl
           </Select>
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DemoContainer components={['DateTimePicker']}>
+          <DemoContainer sx={{ minWidth: { xs: 360, md: 250}}} components={['DateTimePicker']}>
             <DateTimePicker value={new Date(data.date!)} onChange={(newValue) => setData({...data, date: newValue ?? undefined})} label="Date/Time" />
           </DemoContainer>
         </LocalizationProvider>

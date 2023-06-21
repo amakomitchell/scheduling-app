@@ -18,8 +18,12 @@ import { useGetActivities } from '../repository/queries';
 import MoreActions from './MoreActions';
 import { useDeleteActivity } from '../repository/mutations';
 import ActivityDetailDialog from './ActivityDetailDialog';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 function ActivityList() {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const { data: activitiesData, isLoading } = useGetActivities();
   const { mutate: deleteActivity} = useDeleteActivity();

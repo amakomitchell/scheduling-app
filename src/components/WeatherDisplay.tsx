@@ -32,19 +32,19 @@ function WeatherDisplay() {
   if(!weather) {
     return null;
   }
-  
+
   return (
-    <Box ml={92} sx={{ width: 400}} mt={4}>
-      <Paper>
-          <Box p={2} display="flex" flexDirection="column">
-            <Typography> Current Weather</Typography>
-            <Typography>{format(new Date(), 'hh:mm')}</Typography>
-            <Box display="flex" gap={1}>
-              <CloudIcon fontSize='large' />
-              <Typography variant='h4'>{convertKelvinToCelsius(weather.main.temp)}&deg;C</Typography>
-            </Box>
-            <Typography>Humidity {(weather.main.humidity)}%</Typography>
+    <Box display="flex" sx={{ width: '100%', flexDirection: { xs: 'row', md: 'row-reverse' } }} mt={4}>
+      <Paper sx={{ width: { xs: '100%', md: '400px' } }}>
+        <Box p={2} display="flex" flexDirection="column">
+          <Typography> Current Weather</Typography>
+          <Typography>{format(new Date(), 'hh:mm')}</Typography>
+          <Box display="flex" gap={1}>
+            <CloudIcon fontSize='large' />
+            <Typography variant='h4'>{convertKelvinToCelsius(weather.main.temp)}&deg;C</Typography>
           </Box>
+          <Typography>Humidity {(weather.main.humidity)}%</Typography>
+        </Box>
        </Paper>
     </Box>
    
