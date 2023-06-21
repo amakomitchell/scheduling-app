@@ -14,7 +14,9 @@ specifically?
 
 - I also used `material-ui` for the styling due to time constraint and also to use the `material-ui icons` and `date-time-picker` as this gives me the flexibility to quickly use these components without having to create one from scratch. I understand that I could use regular CSS, but I didn't think it worthwhile to spend more time than required.
 
-- I 
+- I also used `uuid` to automatically generate ids.
+
+- I used `react-query` to fetch and mutate queries from the api.
 
 
 2. What improvements or new features would you add if you had more time to work on

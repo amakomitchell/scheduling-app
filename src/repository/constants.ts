@@ -1,4 +1,4 @@
-export const APPID = 'Paste you APPID here that was sent to you via email';
+export const APPID = 'Paste you APPID here that was sent to you via email.';
 
 
 export const ACTIVITY_TYPES = [
